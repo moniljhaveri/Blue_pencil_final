@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:id="@+id/editorpage"
+    android:weightSum="1"
+    android:background="@drawable/applicationbackground">
+
+    <!--<Spinner-->
+        <!--android:id="@+id/Filters"-->
+        <!--android:text="@string/Filters"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="@android:drawable/btn_dropdown"-->
+    <!--/>-->
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp">
+
+
+
+        <Button
+            android:id="@+id/red_filter"
+            android:background="@drawable/redbutton"
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/red"/>
+
+        <Button
+            android:id="@+id/green_filter"
+            android:background="@drawable/greenifybutton"
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/green_filter"/>
+
+        <Button
+            android:id="@+id/blue_filter"
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:background="@drawable/bluebutton"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/blue_filter"/>
+
+        <Button
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:id="@+id/invert_filter"
+            android:background="@drawable/invertbutton"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/invert"/>
+
+        <Button
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:background="@drawable/grayscalebutton"
+            android:id="@+id/filter_button"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/grey"/>
+
+        <Button
+            android:layout_width="82dp"
+            android:layout_height="110dp"
+            android:background="@drawable/sepiabutton"
+            android:id="@+id/sepia_filter"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:paddingTop="55dp"
+            android:textColor="#747474"
+            android:text="@string/sepia_filter"/>
+
+    </LinearLayout>
+    </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/image"
+        android:contentDescription="@string/image_cd_camera"
+        android:layout_width="340dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="30dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center|bottom"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/back_button"
+            android:background="@drawable/backbutton"
+            android:layout_width="170dp"
+            android:layout_height="36dp"
+            android:text="@string/back_button"
+            android:textColor="#747474"
+            android:textSize="18sp"/>
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="36dp"
+            android:background="@drawable/backbutton"
+            android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/textView" />
+
+
+</LinearLayout>
