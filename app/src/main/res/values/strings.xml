@@ -16,7 +16,7 @@
     <string name="picture_button">Take Photo</string>
     <string name="gallery_button">Open Gallery</string>
     <string name="red">Redden</string>
-    <string name="sharebutton">Share</string>
+    <string name="save_button">Save</string>
     <string name="back_button">Back</string>
     <!--<string-array name="filters">-->
         <!--<item>Black and White</item>-->

@@ -126,6 +126,8 @@
             android:textColor="#747474"
             android:textSize="18sp"/>
         <Button
+            android:id="@+id/save_button"
+            android:text="@string/save_button"
             android:layout_width="170dp"
             android:layout_height="36dp"
             android:background="@drawable/backbutton"

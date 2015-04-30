@@ -2,9 +2,10 @@ package com.example.moniljhaveri.thebackend;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,14 +16,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-
-import static com.example.moniljhaveri.thebackend.R.id.image_camera;
+import java.util.Random;
 
 
 public class MainActivity extends Activity {
@@ -33,7 +32,7 @@ public class MainActivity extends Activity {
     private static int imageGallery_load_image = 1; //this is for accessing the image gallery
     private String selectedImagePath;
 
-    private ImageView TakenPhoto; //this is to bring the photo to the gallery
+    //private ImageView TakenPhoto; //this is to bring the photo to the gallery
     TextView textTargetUri;
 
 
@@ -54,14 +53,17 @@ public class MainActivity extends Activity {
 
     private void takePhoto(View v) { //this is for the camera
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "pictures.jpeg");
+        String pic_name = "Blue_Pencil";
+        Random rand = new Random(); //this will allow you save lots of pictures
+        int randpic = rand.nextInt(1000);
+        pic_name = pic_name + String.valueOf(randpic) + ".jpg";
+        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), pic_name);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
 
 
     }
-
 
 
     @Override
@@ -78,8 +80,8 @@ public class MainActivity extends Activity {
         libraryButton.setTypeface(futuraMedium);
 
         //get a reference to the image view that the picture will see
-        TakenPhoto = (ImageView) findViewById(image_camera);
-        textTargetUri = (TextView) findViewById(R.id.textView);
+        // TakenPhoto = (ImageView) findViewById(image_camera);
+        //textTargetUri = (TextView) findViewById(R.id.textView);
         libraryButton.setOnClickListener(onClick); // this is the listener for the library
     }
 
@@ -99,47 +101,66 @@ public class MainActivity extends Activity {
                 if (resultCode == Activity.RESULT_OK) { //This is the activity for the camera
                     Uri selectedImage = imageUri;
                     getContentResolver().notifyChange(selectedImage, null);
-                    TakenPhoto = (ImageView) findViewById(R.id.image_camera);
+                    //TakenPhoto = (ImageView) findViewById(R.id.image_camera);
                     ContentResolver cr = getContentResolver();
                     Bitmap bitmap;
                     try {
                         bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-                        TakenPhoto.setImageBitmap(bitmap);
+                        // TakenPhoto.setImageBitmap(bitmap);
+
+
                         Toast.makeText(MainActivity.this, selectedImage.toString(), Toast.LENGTH_LONG).show();
+                        Uri tempUri = getImageUri(getApplicationContext(), bitmap);
+
+
                         Intent intent = new Intent(MainActivity.this, editorpage.class);
+                        intent.setData(tempUri);
                         startActivity(intent);
                         break; // don't ask me why it works but it works
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Toast.makeText(MainActivity.this, "failed to load", Toast.LENGTH_LONG).show();
                         Log.e(logtag, e.toString());
-                       // break;
+                        // break;
                     }
                 }
             case 1:
                 if (resultCode == RESULT_OK) { //this is for the library
                     Uri galleryUri = data.getData();
-                    textTargetUri.setText(galleryUri.toString());
-                    Bitmap bitmap;
+                    //textTargetUri.setText(galleryUri.toString());
+                    //Bitmap bitmap;
 
-                    try {
-                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(galleryUri));
-                        TakenPhoto.setImageBitmap(bitmap);
-                        Intent intent = new Intent(MainActivity.this, editorpage.class);
-                        intent.setData(galleryUri);
-                        startActivity(intent);
 
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    //bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(galleryUri));
+                    // TakenPhoto.setImageBitmap(bitmap);
+                    Intent intent = new Intent(MainActivity.this, editorpage.class);
+                    intent.setData(galleryUri);
+                    startActivity(intent);
 
 
                 }
+
+
         }
+    }
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
     }
 }
 
 
-
+//
 //    public String getPath(Uri uri1){ //This gets path of the string image
 //        String res = null;
 //        String[] projection = { MediaStore.Images.Media.DATA };

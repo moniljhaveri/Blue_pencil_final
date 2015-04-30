@@ -28,18 +28,18 @@
         android:textColor="#747474"
         android:textSize="24sp"/>
 
-    <ImageView
-        android:id="@+id/image_camera"
-        android:contentDescription="@string/image_cd_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter" />
+    <!--<ImageView-->
+        <!--android:id="@+id/image_camera"-->
+        <!--android:contentDescription="@string/image_cd_camera"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:scaleType="fitCenter" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        android:id="@+id/textView" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=" "-->
+        <!--android:id="@+id/textView" />-->
 
 
 </LinearLayout>

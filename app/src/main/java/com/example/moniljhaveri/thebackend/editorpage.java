@@ -25,6 +25,7 @@ public class editorpage extends Activity {
     Bitmap BW;
     Bitmap editBitmap;
     ImageView editImage;
+    int picnum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +74,10 @@ public class editorpage extends Activity {
         Redden.setOnClickListener(editorListener);
         Redden.setTypeface(futuraMedium);
 
-
-//        filterButton = (Spinner)findViewById(R.id.Filters); //Filters buttons
-//        filterresources = getResources().getStringArray(R.array.filters); //options of filters
-//        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,filterresources);
-//        filterButton.setAdapter(adapter);
+        Button Save = (Button) findViewById(R.id.save_button);
+        Save.setOnClickListener(editorListener);
+        Save.setTypeface(futuraMedium);
+//
     }
 
     private View.OnClickListener editorListener = new View.OnClickListener() {
@@ -123,6 +123,10 @@ public class editorpage extends Activity {
                 case (R.id.red_filter): {
                     BW = Redden(editBitmap);
                     editImage.setImageBitmap(BW);
+                    break;
+                }
+                case (R.id.save_button):{
+                    saveBitmap(BW);
                     break;
                 }
             }
@@ -395,6 +399,22 @@ public class editorpage extends Activity {
         // return final image
         return bmOut;
     }
+    public void saveBitmap(Bitmap source){
+        String pic_name = "picture_"  + String.valueOf(picnum);
+        try{
+            MediaStore.Images.Media.insertImage(getContentResolver(),source,pic_name, null);
+            Toast.makeText(editorpage.this, "Saved Picture", Toast.LENGTH_LONG).show();
+            picnum++;
+        }catch (Exception e){
+            Toast.makeText(editorpage.this, "Save failed", Toast.LENGTH_LONG).show();
+
+        }
+        //String P = saveBitmap(BW, imagename)
+
+
+
+    }
+
 }
 
 
